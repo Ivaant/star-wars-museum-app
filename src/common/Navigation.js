@@ -1,23 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './css/Navigation.css';
 
-class Navigation extends Component {
-  constructor() {
-    super();
-    this.state = {
-      menu: {},
-      menuNames: []
-    }
-  }
+const Navigation = (props) => {
 
-  componentDidMount() {
-    fetch('https://swapi.co/api/')
-      .then(response => response.json())
-      .then(contents => this.setState(
-        {menu: contents, menuNames: Object.keys(contents)}));
-  }
-
-  mapper = (name, index) => {
+  const mapper = (name, index) => {
     return (
       <li key={index}><button
         //onClick={}
@@ -27,15 +13,13 @@ class Navigation extends Component {
     )
   }
 
-  render() {
     return (
       <nav>
         <ul>
-          {this.state.menuNames.map(this.mapper)}
+          {props.menuNames.map(mapper)}
         </ul>
       </nav>
-    );
-  }
+    )
 }
 
 export default Navigation;

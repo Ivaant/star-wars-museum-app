@@ -12,9 +12,18 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchBoxInput: ''
+            searchBoxInput: '',
+            menu: {},
+            menuNames: []
         }
     }
+
+    componentDidMount() {
+        fetch('https://swapi.co/api/')
+          .then(response => response.json())
+          .then(contents => this.setState(
+            {menu: contents, menuNames: Object.keys(contents)}));
+      }
 
     handleSearchBoxChange = (event) => {
         this.setState({ searchBoxInput: event.target.value });
@@ -24,7 +33,7 @@ class App extends Component {
         return (
             <Fragment>
                 <Header />
-                <Navigation />
+                <Navigation menuNames={this.state.menuNames} />
                 <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
                 <Scroll>
                     <CardList
