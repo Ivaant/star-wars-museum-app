@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import Header from './common/Header';
 import Navigation from './common/Navigation';
 import SearchBox from './common/SearchBox';
-import ItemCard from './common/ItemCard';
+import CardList from './common/CardList';
+import { peopleURLs } from './assets/imageURLs';
 import './App.css';
 
 class App extends Component {
@@ -23,7 +24,9 @@ class App extends Component {
                 <Header />
                 <Navigation />
         <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
-        <ItemCard />
+        <CardList
+            data={peopleURLs}
+         />
         {/*<Scroll>
             <CardList />
         </Scroll>
