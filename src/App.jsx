@@ -14,7 +14,8 @@ class App extends Component {
         this.state = {
             searchBoxInput: '',
             menu: {},
-            menuNames: []
+            menuNames: [],
+            itemsToRender: []
         }
     }
 
@@ -23,6 +24,7 @@ class App extends Component {
             .then(response => response.json())
             .then(contents => this.setState(
                 { menu: contents, menuNames: Object.keys(contents) }));
+        this.setState({itemsToRender: peopleURLs});
     }
 
     handleSearchBoxChange = (event) => {
@@ -30,6 +32,10 @@ class App extends Component {
     }
 
     render() {
+        const { itemsToRender, searchBoxInput } = this.state;
+        const filteredItems = itemsToRender.filter(item => {
+            return item.name.toLowerCase().includes(searchBoxInput.toLowerCase());
+        }) 
         return (
             <Fragment>
                 <Header />
@@ -41,7 +47,7 @@ class App extends Component {
                 <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
                 <Scroll>
                     <CardList
-                        data={peopleURLs}
+                        data={filteredItems}
                     />
                 </Scroll>
                 <Footer />
