@@ -20,10 +20,10 @@ class App extends Component {
 
     componentDidMount() {
         fetch('https://swapi.co/api/')
-          .then(response => response.json())
-          .then(contents => this.setState(
-            {menu: contents, menuNames: Object.keys(contents)}));
-      }
+            .then(response => response.json())
+            .then(contents => this.setState(
+                { menu: contents, menuNames: Object.keys(contents) }));
+    }
 
     handleSearchBoxChange = (event) => {
         this.setState({ searchBoxInput: event.target.value });
@@ -33,7 +33,11 @@ class App extends Component {
         return (
             <Fragment>
                 <Header />
-                <Navigation menuNames={this.state.menuNames} />
+                {
+                    !this.state.menuNames.length ?
+                        <h1>MENU IS LOADING...</h1> :
+                        <Navigation menuNames={this.state.menuNames} />
+                }
                 <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
                 <Scroll>
                     <CardList
