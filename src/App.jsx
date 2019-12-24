@@ -3,6 +3,8 @@ import Header from './common/Header';
 import Navigation from './common/Navigation';
 import SearchBox from './common/SearchBox';
 import CardList from './common/CardList';
+import Scroll from './common/Scroll';
+import Footer from './common/Footer';
 import { peopleURLs } from './assets/imageURLs';
 import './App.css';
 
@@ -15,7 +17,7 @@ class App extends Component {
     }
 
     handleSearchBoxChange = (event) => {
-        this.setState({searchBoxInput: event.target.value});
+        this.setState({ searchBoxInput: event.target.value });
     }
 
     render() {
@@ -23,14 +25,13 @@ class App extends Component {
             <Fragment>
                 <Header />
                 <Navigation />
-        <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
-        <CardList
-            data={peopleURLs}
-         />
-        {/*<Scroll>
-            <CardList />
-        </Scroll>
-        <Footer />*/}
+                <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
+                <Scroll>
+                    <CardList
+                        data={peopleURLs}
+                    />
+                </Scroll>
+                <Footer />
             </Fragment>
         )
     }
