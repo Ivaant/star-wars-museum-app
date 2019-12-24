@@ -14,7 +14,6 @@ class App extends Component {
         this.state = {
             searchBoxInput: '',
             menu: {},
-            menuNames: [],
             itemsToRender: []
         }
     }
@@ -23,7 +22,7 @@ class App extends Component {
         fetch('https://swapi.co/api/')
             .then(response => response.json())
             .then(contents => this.setState(
-                { menu: contents, menuNames: Object.keys(contents) }));
+                { menu: contents }));
         this.setState({itemsToRender: peopleURLs});
     }
 
@@ -33,6 +32,7 @@ class App extends Component {
 
     render() {
         const { itemsToRender, searchBoxInput } = this.state;
+        const menuNames = Object.keys(this.state.menu);
         const filteredItems = itemsToRender.filter(item => {
             return item.name.toLowerCase().includes(searchBoxInput.toLowerCase());
         }) 
@@ -40,9 +40,9 @@ class App extends Component {
             <Fragment>
                 <Header />
                 {
-                    !this.state.menuNames.length ?
+                    !menuNames.length ?
                         <h1>MENU IS LOADING...</h1> :
-                        <Navigation menuNames={this.state.menuNames} />
+                        <Navigation menuNames={menuNames} />
                 }
                 <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
                 <Scroll>
