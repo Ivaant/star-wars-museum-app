@@ -1,0 +1,6 @@
+.item-card {
+    margin: 20px;
+    border: solid 2px rgb(190, 180, 180);
+    width: 500px;
+    text-align: center;
+}

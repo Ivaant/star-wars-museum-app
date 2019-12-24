@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Header from './common/Header';
 import Navigation from './common/Navigation';
 import SearchBox from './common/SearchBox';
+import ItemCard from './common/ItemCard';
 import './App.css';
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
                 <Header />
                 <Navigation />
         <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
+        <ItemCard />
         {/*<Scroll>
             <CardList />
         </Scroll>
