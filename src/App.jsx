@@ -65,7 +65,9 @@ class App extends Component {
                             onMenuClick={this.handleMenuButtonClick}
                         />
                 }
-                <SearchBox onSearchBoxChange={this.props.onSearchBoxChange} />
+                <SearchBox
+                    onSearchBoxChange={this.props.onSearchBoxChange}
+                    menuButtonClicked={this.props.menuButtonClicked} />
                 <Scroll>
                     <CardList
                         data={filteredItems}

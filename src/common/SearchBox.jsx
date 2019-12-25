@@ -5,7 +5,7 @@ const SearchBox = (props) => {
     return (
         <input
         type="search"
-        placeholder="search heroes"
+        placeholder={`search ${props.menuButtonClicked}`}
         onChange={props.onSearchBoxChange}
         />
 
