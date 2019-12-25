@@ -6,7 +6,7 @@ const Navigation = (props) => {
   const mapper = (name, index) => {
     return (
       <li key={index}><button
-        //onClick={}
+        onClick={props.onMenuClick}
         name={name}
       >{name.toUpperCase()}</button>
       </li>
