@@ -1,4 +1,4 @@
-const peopleURLs = [
+const people = [
     {
         name: "Luke Skywalker",
         url: "https://starwars-visualguide.com/assets/img/characters/1.jpg"
@@ -42,4 +42,4 @@ const peopleURLs = [
     }
 ];
 
-export { peopleURLs };
+export default people;

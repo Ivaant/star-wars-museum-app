@@ -6,21 +6,22 @@ import CardList from './common/CardList';
 import Scroll from './common/Scroll';
 import Footer from './common/Footer';
 import { connect } from 'react-redux';
-import { setMenuButtonClick, handleSearchBoxChange } from './redux/actions';
-import { peopleURLs } from './assets/imageURLs';
+import { setMenuButtonClick, handleSearchBoxChange, mountItemsToRender } from './redux/actions';
 import './App.css';
 
 const mapStateToProps = state => {
     return {
-        menuButtonClicked: state.menuButtonClicked,
-        searchBoxInput: state.searchBoxInput
+        menuButtonClicked: state.menuButtonClickedName,
+        searchBoxInput: state.searchBoxInput,
+        itemsToRender: state.itemsToRender
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onMenuButtonClick: (event) => dispatch(setMenuButtonClick(event.target.name)),
-        onSearchBoxChange: (event) => dispatch(handleSearchBoxChange(event.target.value))
+        onSearchBoxChange: (event) => dispatch(handleSearchBoxChange(event.target.value)),
+        mountItemsToRender: (assetName) => dispatch(mountItemsToRender(assetName))
     }
 }
 
@@ -28,10 +29,11 @@ const mapDispatchToProps = dispatch => {
 class App extends Component {
     constructor(props) {
         super(props);
+        this.props.mountItemsToRender(this.props.menuButtonClicked);
         this.state = {
-            searchBoxInput: '',
+            // searchBoxInput: '',
             menu: {},
-            itemsToRender: []
+            //itemsToRender: []
         }
     }
 
@@ -40,17 +42,18 @@ class App extends Component {
             .then(response => response.json())
             .then(contents => this.setState(
                 { menu: contents }));
-        this.setState({ itemsToRender: peopleURLs });
+        this.props.mountItemsToRender(this.props.menuButtonClicked);
     }
 
-    handleSearchBoxChange = (event) => {
-        this.setState({ searchBoxInput: event.target.value });
+    handleMenuButtonClick = (event) => {
+        this.props.onMenuButtonClick(event);
+        this.props.mountItemsToRender(event.target.name);
     }
 
     render() {
-        const { searchBoxInput } = this.props;
+        const { searchBoxInput, itemsToRender } = this.props;
         const menuNames = Object.keys(this.state.menu);
-        const filteredItems = this.state.itemsToRender.filter(item => {
+        const filteredItems = itemsToRender.filter(item => {
             return item.name.toLowerCase().includes(searchBoxInput.toLowerCase());
         })
         return (
@@ -61,7 +64,7 @@ class App extends Component {
                         <h1>MENU IS LOADING...</h1> :
                         <Navigation
                             menuNames={menuNames}
-                            onMenuClick={this.props.onMenuButtonClick}
+                            onMenuClick={this.handleMenuButtonClick}
                         />
                 }
                 <SearchBox onSearchBoxChange={this.props.onSearchBoxChange} />
