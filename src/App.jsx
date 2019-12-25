@@ -29,7 +29,6 @@ const mapDispatchToProps = dispatch => {
 class App extends Component {
     constructor(props) {
         super(props);
-        this.props.mountItemsToRender(this.props.menuButtonClicked);
         this.state = {
             // searchBoxInput: '',
             menu: {},
@@ -42,7 +41,6 @@ class App extends Component {
             .then(response => response.json())
             .then(contents => this.setState(
                 { menu: contents }));
-        this.props.mountItemsToRender(this.props.menuButtonClicked);
     }
 
     handleMenuButtonClick = (event) => {
