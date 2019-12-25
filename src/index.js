@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { mainMenuSwitcher } from './redux/reducers';
+import { appStateSwitcher } from './redux/reducers';
 import App from './App';
 
-const store = createStore(mainMenuSwitcher);
+const store = createStore(appStateSwitcher);
 
 ReactDOM.render(<Provider store={store}>
                     <App />

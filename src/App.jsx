@@ -6,19 +6,21 @@ import CardList from './common/CardList';
 import Scroll from './common/Scroll';
 import Footer from './common/Footer';
 import { connect } from 'react-redux';
-import { setMenuButtonClick } from './redux/actions';
+import { setMenuButtonClick, handleSearchBoxChange } from './redux/actions';
 import { peopleURLs } from './assets/imageURLs';
 import './App.css';
 
 const mapStateToProps = state => {
     return {
-        menuButtonClicked: state.menuButtonClicked
+        menuButtonClicked: state.menuButtonClicked,
+        searchBoxInput: state.searchBoxInput
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onMenuButtonClick: (event) => dispatch(setMenuButtonClick(event.target.name))
+        onMenuButtonClick: (event) => dispatch(setMenuButtonClick(event.target.name)),
+        onSearchBoxChange: (event) => dispatch(handleSearchBoxChange(event.target.value))
     }
 }
 
@@ -46,9 +48,9 @@ class App extends Component {
     }
 
     render() {
-        const { itemsToRender, searchBoxInput } = this.state;
+        const { searchBoxInput } = this.props;
         const menuNames = Object.keys(this.state.menu);
-        const filteredItems = itemsToRender.filter(item => {
+        const filteredItems = this.state.itemsToRender.filter(item => {
             return item.name.toLowerCase().includes(searchBoxInput.toLowerCase());
         })
         return (
@@ -62,7 +64,7 @@ class App extends Component {
                             onMenuClick={this.props.onMenuButtonClick}
                         />
                 }
-                <SearchBox onSearchBoxChange={this.handleSearchBoxChange} />
+                <SearchBox onSearchBoxChange={this.props.onSearchBoxChange} />
                 <Scroll>
                     <CardList
                         data={filteredItems}
