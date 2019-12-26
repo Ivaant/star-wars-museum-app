@@ -8,6 +8,12 @@ import {
     REQUEST_MENU_FAILED
 } from './constants';
 
+import {
+    REQUEST_ITEMS_PENDING,
+    REQUEST_ITEMS_SUCCESS,
+    REQUEST_ITEMS_FAILED
+} from './constants';
+
 import assets from '../assets/assets';
 
 const initialState = {
@@ -58,6 +64,36 @@ export const requestMenu = (state = initialMenuState, action = {}) => {
                 menu: action.payload
             }
         case REQUEST_MENU_FAILED:
+            return {
+                ...state,
+                isPending: false,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+const initialItemsState = {
+    isPending: true,
+    itemsList: [],
+    error: ''
+}
+
+export const requestItemsList = (state = initialItemsState, action = {}) => {
+    switch (action.type) {
+        case REQUEST_ITEMS_PENDING:
+            return {
+                ...state,
+                isPending: true
+            }
+        case REQUEST_ITEMS_SUCCESS:
+            return {
+                ...state,
+                isPending: false,
+                itemsList: action.payload
+            }
+        case REQUEST_ITEMS_FAILED:
             return {
                 ...state,
                 isPending: false,

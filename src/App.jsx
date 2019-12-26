@@ -6,7 +6,14 @@ import CardList from './common/CardList';
 import Scroll from './common/Scroll';
 import Footer from './common/Footer';
 import { connect } from 'react-redux';
-import { setMenuButtonClick, handleSearchBoxChange, mountItemsToRender, requestMenu } from './redux/actions';
+import {
+    setMenuButtonClick,
+    handleSearchBoxChange,
+    mountItemsToRender,
+    requestMenu,
+    requestItemsList
+} from './redux/actions';
+
 import './App.css';
 
 const mapStateToProps = state => {
@@ -15,29 +22,34 @@ const mapStateToProps = state => {
         searchBoxInput: state.appStateSwitcher.searchBoxInput,
         itemsToRender: state.appStateSwitcher.itemsToRender,
         isPending: state.requestMenu.isPending,
-        menu: state.requestMenu.menu
+        menu: state.requestMenu.menu,
+        itemsList: state.requestItemsList.itemsList
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onMenuButtonClick: (event) => dispatch(setMenuButtonClick(event.target.name)),
+        onMenuButtonClick: (menuName) => dispatch(setMenuButtonClick(menuName)),
         onSearchBoxChange: (event) => dispatch(handleSearchBoxChange(event.target.value)),
         mountItemsToRender: (assetName) => dispatch(mountItemsToRender(assetName)),
-        onRequestMenu: () => dispatch(requestMenu())
+        onRequestMenu: () => dispatch(requestMenu()),
+        onRequestItemsList: listUrl => dispatch(requestItemsList(listUrl))
     }
 }
 
 
 class App extends Component {
-    
+
     componentDidMount() {
         this.props.onRequestMenu();
     }
 
     handleMenuButtonClick = (event) => {
-        this.props.onMenuButtonClick(event);
-        this.props.mountItemsToRender(event.target.name);
+        const menuName = event.target.name.toLowerCase();
+        this.props.onMenuButtonClick(menuName);
+        this.props.mountItemsToRender(menuName);
+        const listUrl = this.props.menu[menuName];
+        this.props.onRequestItemsList(listUrl);
     }
 
     render() {
