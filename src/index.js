@@ -9,7 +9,7 @@ import App from './App';
 
 const rootReducer = combineReducers({appStateSwitcher, requestMenu, requestItemsList});
 const logger = createLogger();
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 ReactDOM.render(<Provider store={store}>
                     <App />
