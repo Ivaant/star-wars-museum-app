@@ -17,4 +17,9 @@ nav ul li button {
     background: none;
     border-width: 0px;
     font-size: 1.4rem;
+    cursor: pointer;
+}
+
+nav ul li button:hover {
+    color: yellow;
 }

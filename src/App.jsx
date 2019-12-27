@@ -48,6 +48,7 @@ class App extends Component {
         const menuName = event.target.name.toLowerCase();
         this.props.onMenuButtonClick(menuName);
         this.props.mountItemsToRender(menuName);
+        
         const listUrl = this.props.menu[menuName];
         this.props.onRequestItemsList(listUrl);
     }

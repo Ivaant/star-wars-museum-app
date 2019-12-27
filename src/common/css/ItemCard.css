@@ -1,8 +1,24 @@
+button.card {
+    margin: 0px;
+    border-width: 0px;
+    padding: 0px;
+    text-decoration: none;
+    background: none;
+}
+
+button.card:hover {
+    cursor: pointer;
+}
 .item-card {
     margin: 20px;
     border: solid 2px rgb(190, 180, 180);
     width: 500px;
     text-align: center;
+    transition: all .2s ease-in-out;
+}
+
+.item-card:hover {
+    transform: scale(1.05);
 }
 
 .item-card img {

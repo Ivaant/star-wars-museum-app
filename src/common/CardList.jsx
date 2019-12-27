@@ -9,6 +9,7 @@ const CardList = (props) => {
                 return (
                     <ItemCard
                         key={index}
+                        itemIndex={index}
                         image={item.url}
                         name={item.name}
                     />
