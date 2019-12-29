@@ -14,7 +14,7 @@ import {
 } from './constants';
 
 export const setMenuButtonClick = buttonName => {
-    //console.log(buttonName);
+    console.log(buttonName);
     return {
         type: CLICK_MENU_BUTTON,
         payload: buttonName

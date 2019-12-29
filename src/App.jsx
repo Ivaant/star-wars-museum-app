@@ -8,32 +8,28 @@ import Footer from './common/components/Footer';
 import { connect } from 'react-redux';
 import {
     setMenuButtonClick,
-    handleSearchBoxChange,
-    mountItemsToRender,
-    requestMenu,
-    requestItemsList
+    requestMenu
 } from './redux/actions';
 
 import './App.css';
 
 const mapStateToProps = state => {
     return {
-        menuButtonClicked: state.appStateSwitcher.menuButtonClickedName,
+        //menuButtonClicked: state.appStateSwitcher.menuButtonClickedName,
         searchBoxInput: state.appStateSwitcher.searchBoxInput,
         itemsToRender: state.appStateSwitcher.itemsToRender,
         isPending: state.requestMenu.isPending,
-        menu: state.requestMenu.menu,
-        itemsList: state.requestItemsList.itemsList
+        //itemsList: state.requestItemsList.itemsList
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onMenuButtonClick: (menuName) => dispatch(setMenuButtonClick(menuName)),
+        //onMenuButtonClick: (menuName) => dispatch(setMenuButtonClick(menuName)),
         
-        mountItemsToRender: (assetName) => dispatch(mountItemsToRender(assetName)),
+        //mountItemsToRender: (assetName) => dispatch(mountItemsToRender(assetName)),
         onRequestMenu: () => dispatch(requestMenu()),
-        onRequestItemsList: listUrl => dispatch(requestItemsList(listUrl))
+        //onRequestItemsList: listUrl => dispatch(requestItemsList(listUrl))
     }
 }
 
@@ -44,18 +40,8 @@ class App extends Component {
         this.props.onRequestMenu();
     }
 
-    handleMenuButtonClick = (event) => {
-        const menuName = event.target.name.toLowerCase();
-        this.props.onMenuButtonClick(menuName);
-        this.props.mountItemsToRender(menuName);
-        
-        const listUrl = this.props.menu[menuName];
-        this.props.onRequestItemsList(listUrl);
-    }
-
     render() {
-        const { searchBoxInput, itemsToRender, isPending, menu } = this.props;
-        const menuNames = Object.keys(menu);
+        const { searchBoxInput, itemsToRender, isPending } = this.props;
         const filteredItems = itemsToRender.filter(item => {
             return item.name.toLowerCase().includes(searchBoxInput.toLowerCase());
         })
@@ -65,10 +51,7 @@ class App extends Component {
                 {
                     isPending ?
                         <h1>MENU IS LOADING...</h1> :
-                        <Navigation
-                            menuNames={menuNames}
-                            onMenuClick={this.handleMenuButtonClick}
-                        />
+                        <Navigation />
                 }
                 <SearchBox />
                 <Scroll>
