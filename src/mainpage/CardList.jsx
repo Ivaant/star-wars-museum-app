@@ -5,7 +5,9 @@ import './css/CardList.css';
 
 const mapStateToProps = state => {
     return {
-        itemsList: state.requestItemsList.itemsList 
+        searchBoxInput: state.appStateSwitcher.searchBoxInput,
+        itemsToRender: state.appStateSwitcher.itemsToRender,
+        itemsList: state.requestItemsList.itemsList
     }
 }
 
@@ -25,9 +27,12 @@ class CardList extends Component {
     }
 
     render() {
+        const filteredItems = this.props.itemsToRender.filter(item => {
+            return item.name.toLowerCase().includes(this.props.searchBoxInput.toLowerCase());
+        })
         return (
             <div className="container" >
-                {this.props.data.map((item, index) => {
+                {filteredItems.map((item, index) => {
                     return (
                         <ItemCard
                             key={index}

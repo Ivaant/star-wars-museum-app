@@ -6,30 +6,19 @@ import CardList from './mainpage/CardList';
 import Scroll from './common/components/Scroll';
 import Footer from './common/components/Footer';
 import { connect } from 'react-redux';
-import {
-    setMenuButtonClick,
-    requestMenu
-} from './redux/actions';
+import { requestMenu } from './redux/actions';
 
 import './App.css';
 
 const mapStateToProps = state => {
     return {
-        //menuButtonClicked: state.appStateSwitcher.menuButtonClickedName,
-        searchBoxInput: state.appStateSwitcher.searchBoxInput,
-        itemsToRender: state.appStateSwitcher.itemsToRender,
-        isPending: state.requestMenu.isPending,
-        //itemsList: state.requestItemsList.itemsList
+        isPending: state.requestMenu.isPending
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        //onMenuButtonClick: (menuName) => dispatch(setMenuButtonClick(menuName)),
-        
-        //mountItemsToRender: (assetName) => dispatch(mountItemsToRender(assetName)),
-        onRequestMenu: () => dispatch(requestMenu()),
-        //onRequestItemsList: listUrl => dispatch(requestItemsList(listUrl))
+        onRequestMenu: () => dispatch(requestMenu())
     }
 }
 
@@ -41,23 +30,17 @@ class App extends Component {
     }
 
     render() {
-        const { searchBoxInput, itemsToRender, isPending } = this.props;
-        const filteredItems = itemsToRender.filter(item => {
-            return item.name.toLowerCase().includes(searchBoxInput.toLowerCase());
-        })
         return (
             <Fragment>
                 <Header />
                 {
-                    isPending ?
+                    this.props.isPending ?
                         <h1>MENU IS LOADING...</h1> :
                         <Navigation />
                 }
                 <SearchBox />
                 <Scroll>
-                    <CardList
-                        data={filteredItems}
-                    />
+                    <CardList />
                 </Scroll>
                 <Footer />
             </Fragment>
