@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import Header from './common/Header';
-import Navigation from './common/Navigation';
-import SearchBox from './common/SearchBox';
-import CardList from './common/CardList';
-import Scroll from './common/Scroll';
-import Footer from './common/Footer';
+import Header from './common/components/Header';
+import Navigation from './common/containers/Navigation';
+import SearchBox from './common/containers/SearchBox';
+import CardList from './mainpage/CardList';
+import Scroll from './common/components/Scroll';
+import Footer from './common/components/Footer';
 import { connect } from 'react-redux';
 import {
     setMenuButtonClick,

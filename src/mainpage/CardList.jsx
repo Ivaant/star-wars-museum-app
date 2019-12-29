@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ItemCard from './ItemCard';
+import ItemCard from '../common/components/ItemCard';
 import { connect } from 'react-redux';
 import './css/CardList.css';
 

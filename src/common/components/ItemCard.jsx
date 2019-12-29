@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/ItemCard.css';
+import '../css/ItemCard.css';
 
 const ItemCard = (props) => {
 
