@@ -1,6 +1,7 @@
 import { CLICK_MENU_BUTTON } from './constants';
 import { CHANGE_SEARCHBOX_INPUT } from './constants';
 import { MOUNT_ITEMS_TO_RENDER } from './constants';
+import { SET_SELECTED_ITEM } from './constants';
 
 import {
     REQUEST_MENU_PENDING,
@@ -19,7 +20,8 @@ import assets from '../assets/assets';
 const initialState = {
     menuButtonClickedName: "people",
     searchBoxInput: '',
-    itemsToRender: assets.people
+    itemsToRender: assets.people,
+    selectedItem: null
 }
 
 export const appStateSwitcher = (state = initialState, action = {}) => {
@@ -27,7 +29,8 @@ export const appStateSwitcher = (state = initialState, action = {}) => {
         case CLICK_MENU_BUTTON:
             return {
                 ...state,
-                menuButtonClickedName: action.payload
+                menuButtonClickedName: action.payload,
+                selectedItem: null
             }
         case CHANGE_SEARCHBOX_INPUT:
             return {
@@ -39,6 +42,12 @@ export const appStateSwitcher = (state = initialState, action = {}) => {
                 ...state,
                 itemsToRender: assets[action.payload]
             }
+        case SET_SELECTED_ITEM:
+            return {
+                ...state,
+                selectedItem: action.payload
+            }    
+
         default:
             return state;
     }

@@ -1,6 +1,7 @@
 import { CLICK_MENU_BUTTON } from './constants';
 import { CHANGE_SEARCHBOX_INPUT } from './constants';
 import { MOUNT_ITEMS_TO_RENDER } from './constants';
+import { SET_SELECTED_ITEM } from './constants';
 import {
     REQUEST_MENU_PENDING,
     REQUEST_MENU_SUCCESS,
@@ -32,6 +33,13 @@ export const mountItemsToRender = assetName => {
     return {
         type: MOUNT_ITEMS_TO_RENDER,
         payload: assetName
+    }
+}
+
+export const setSelectedItem = item => {
+    return {
+        type: SET_SELECTED_ITEM,
+        payload: item
     }
 }
 

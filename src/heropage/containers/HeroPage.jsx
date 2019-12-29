@@ -1,16 +1,42 @@
 import React, { Component } from 'react';
-import ItemCard from '../common/ItemCard';
+import ItemCard from '../../common/components/ItemCard';
+import SpecCell from '../components/SpecCell';
+import ListCell from '../components/ListCell';
+import { connect } from 'react-redux';
 
 class HeroPage extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
+        const { itemsToRender, selectedItem } = this.props;
+        const itemToRender = itemsToRender.find(elem => elem.name === selectedItem.name);
         return (
             <table>
                 <tr>
-                    <ItemCard name={people.name} />
+                    <td>
+                        <ItemCard
+                            name={itemToRender.name}
+                            image={itemToRender.url}
+                        />
+                    </td>
+                    <td>
+                        <SpecCell contents={selectedItem} />
+                    </td>
+                    <td>
+                        <ItemCard
+                            name="Earth"
+                            image={itemToRender.url} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ListCell />
+                    </td>
+                    <td>
+                        <ListCell />
+                    </td>
+                    <td>
+                        <ListCell />
+                    </td>
                 </tr>
 
                 {/*<SpecCell />
@@ -23,4 +49,15 @@ class HeroPage extends Component {
     }
 }
 
-export default HeroPage;
+const mapStateToProps = state => {
+    return {
+        selectedItem: state.appStateSwitcher.selectedItem,
+        itemsToRender: state.appStateSwitcher.itemsToRender
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeroPage);

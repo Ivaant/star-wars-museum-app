@@ -4,7 +4,7 @@ import '../css/ItemCard.css';
 const ItemCard = (props) => {
 
     return (
-        <button className="card">
+        <button className="card" onClick={() => props.onCardClick(props.name)}>
             <div className="item-card">
                 <img
                     src={props.image}

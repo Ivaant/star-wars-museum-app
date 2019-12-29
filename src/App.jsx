@@ -3,25 +3,13 @@ import Header from './common/components/Header';
 import Navigation from './common/containers/Navigation';
 import SearchBox from './common/containers/SearchBox';
 import CardList from './mainpage/CardList';
+import HeroPage from './heropage/containers/HeroPage';
 import Scroll from './common/components/Scroll';
 import Footer from './common/components/Footer';
 import { connect } from 'react-redux';
 import { requestMenu } from './redux/actions';
 
 import './App.css';
-
-const mapStateToProps = state => {
-    return {
-        isPending: state.requestMenu.isPending
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onRequestMenu: () => dispatch(requestMenu())
-    }
-}
-
 
 class App extends Component {
 
@@ -30,6 +18,7 @@ class App extends Component {
     }
 
     render() {
+        const { menuButtonClickedName, selectedItem } = this.props;
         return (
             <Fragment>
                 <Header />
@@ -40,11 +29,34 @@ class App extends Component {
                 }
                 <SearchBox />
                 <Scroll>
-                    <CardList />
+                    {selectedItem ?
+                        {
+                            people: <HeroPage />,
+                            planets: <HeroPage />,
+                            films: <HeroPage />,
+                            species: <HeroPage />,
+                            vehicles: <HeroPage />,
+                            starships: <HeroPage />
+                        }[menuButtonClickedName]
+                        : <CardList />}
                 </Scroll>
                 <Footer />
             </Fragment>
         )
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        isPending: state.requestMenu.isPending,
+        menuButtonClickedName: state.appStateSwitcher.menuButtonClickedName,
+        selectedItem: state.appStateSwitcher.selectedItem
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onRequestMenu: () => dispatch(requestMenu())
     }
 }
 

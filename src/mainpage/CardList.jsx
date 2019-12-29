@@ -1,20 +1,8 @@
 import React, { Component } from 'react';
 import ItemCard from '../common/components/ItemCard';
 import { connect } from 'react-redux';
+import { setSelectedItem } from '../redux/actions';
 import './css/CardList.css';
-
-const mapStateToProps = state => {
-    return {
-        searchBoxInput: state.appStateSwitcher.searchBoxInput,
-        itemsToRender: state.appStateSwitcher.itemsToRender,
-        itemsList: state.requestItemsList.itemsList
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {}
-}
-
 
 class CardList extends Component {
 
@@ -24,6 +12,13 @@ class CardList extends Component {
             console.log(currentItemsList);
         }
         
+    }
+
+    handleCardClick = (name) => {
+        console.log(name);
+        const selectedItem = this.props.itemsList.find(elem => elem.name === name);
+        console.log(selectedItem);
+        this.props.setSelectedItem(selectedItem);
     }
 
     render() {
@@ -39,6 +34,7 @@ class CardList extends Component {
                             itemIndex={index}
                             image={item.url}
                             name={item.name}
+                            onCardClick={this.handleCardClick}
                         />
                     );
                 })
@@ -47,6 +43,21 @@ class CardList extends Component {
         )
     }
 
+}
+
+const mapStateToProps = state => {
+    return {
+        searchBoxInput: state.appStateSwitcher.searchBoxInput,
+        itemsToRender: state.appStateSwitcher.itemsToRender,
+        itemsList: state.requestItemsList.itemsList,
+        selectedItem: state.appStateSwitcher.selectedItem
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setSelectedItem: item => dispatch(setSelectedItem(item))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardList);

@@ -5,6 +5,11 @@ import '../css/Navigation.css';
 
 class Navigation extends Component {
 
+  componentDidMount() {
+    const listUrl = this.props.menu[this.props.initialMenuButtonClickedName];
+    this.props.onRequestItemsList(listUrl);
+  }
+
   handleMenuButtonClick = (event) => {
     const menuName = event.target.name.toLowerCase();
     this.props.onMenuButtonClick(menuName);
@@ -38,7 +43,8 @@ class Navigation extends Component {
 
 const mapStateToProps = state => {
   return {
-    menu: state.requestMenu.menu
+    menu: state.requestMenu.menu,
+    initialMenuButtonClickedName: state.appStateSwitcher.menuButtonClickedName
   }
 }
 
