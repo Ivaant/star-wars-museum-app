@@ -30,7 +30,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onMenuButtonClick: (menuName) => dispatch(setMenuButtonClick(menuName)),
-        onSearchBoxChange: (event) => dispatch(handleSearchBoxChange(event.target.value)),
+        
         mountItemsToRender: (assetName) => dispatch(mountItemsToRender(assetName)),
         onRequestMenu: () => dispatch(requestMenu()),
         onRequestItemsList: listUrl => dispatch(requestItemsList(listUrl))
@@ -70,9 +70,7 @@ class App extends Component {
                             onMenuClick={this.handleMenuButtonClick}
                         />
                 }
-                <SearchBox
-                    onSearchBoxChange={this.props.onSearchBoxChange}
-                    menuButtonClicked={this.props.menuButtonClicked} />
+                <SearchBox />
                 <Scroll>
                     <CardList
                         data={filteredItems}
