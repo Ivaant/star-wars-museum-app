@@ -14,6 +14,14 @@ import {
     REQUEST_ITEMS_FAILED
 } from './constants';
 
+import {
+    REQUEST_HOMEWORLD_PENDING,
+    REQUEST_HOMEWORLD_SUCCESS,
+    REQUEST_HOMEWORLD_FAILED
+} from './constants';
+
+import assets from '../assets/assets';
+
 export const setMenuButtonClick = buttonName => {
     console.log(buttonName);
     return {
@@ -57,5 +65,21 @@ export const requestItemsList = (listUrl) => (dispatch) => {
         .then(response => response.json())
         .then(itemsList => dispatch({ type: REQUEST_ITEMS_SUCCESS, payload: itemsList.results }))
         .catch(error => dispatch({ type: REQUEST_ITEMS_FAILED, payload: error }));
+}
+
+export const requestHomeworld = (homeworldUrl) => dispatch => {
+    dispatch({ type: REQUEST_HOMEWORLD_PENDING });
+    fetch(homeworldUrl)
+        .then(response => response.json())
+        .then(planet => {
+            const planetName = planet.name;
+            let planetUrl = assets.planets.filter(planet => planet.name === planetName)[0];
+            if (planetUrl === undefined) {
+                planetUrl = assets.placeholder[0].url;
+            }
+            const homeworld = { name: planetName, url: planetUrl };
+            dispatch({ type: REQUEST_HOMEWORLD_SUCCESS, payload: homeworld })
+        })
+        .catch(error => dispatch({ type: REQUEST_HOMEWORLD_FAILED, payload: error }));
 }
 

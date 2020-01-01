@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import ItemCard from '../../common/components/ItemCard';
+import ImageCell from '../components/ImageCell';
 import SpecCell from '../components/SpecCell';
 import ListCell from '../components/ListCell';
 import { connect } from 'react-redux';
+import { requestHomeworld } from '../../redux/actions';
+import '../css/HeroPage.css';
 
 class HeroPage extends Component {
 
+    componentDidMount() {
+        this.props.requestHomeworld(this.props.selectedItem.homeworld);
+    }
+
     render() {
-        const { itemsToRender, selectedItem } = this.props;
+        const { itemsToRender, selectedItem, homeworldData } = this.props;
+        console.log(selectedItem);
+        console.log("homeworldData", homeworldData);
         const itemToRender = itemsToRender.find(elem => elem.name === selectedItem.name);
         return (
-            <table>
-                <tr>
+            <table className="table">
+                <tr className="hero-item">
                     <td>
-                        <ItemCard
+                        <ImageCell
                             name={itemToRender.name}
                             image={itemToRender.url}
                         />
@@ -22,12 +30,12 @@ class HeroPage extends Component {
                         <SpecCell contents={selectedItem} />
                     </td>
                     <td>
-                        <ItemCard
-                            name="Earth"
-                            image={itemToRender.url} />
+                        <ImageCell
+                            name={homeworldData.name}
+                            image={homeworldData.url} />
                     </td>
                 </tr>
-                <tr>
+                <tr className="hero-name">
                     <td>
                         <ListCell />
                     </td>
@@ -52,12 +60,15 @@ class HeroPage extends Component {
 const mapStateToProps = state => {
     return {
         selectedItem: state.appStateSwitcher.selectedItem,
+        homeworldData: state.setHomeworldData.homeworld,
         itemsToRender: state.appStateSwitcher.itemsToRender
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {}
+    return {
+        requestHomeworld: hwUrl => dispatch(requestHomeworld(hwUrl))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeroPage);

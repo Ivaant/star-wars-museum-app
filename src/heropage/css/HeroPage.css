@@ -1,0 +1,53 @@
+
+.table {
+    display: table;
+    margin: 10px auto;
+}
+
+.hero-item {
+    display: table-row;
+    width: 1400px;
+   margin: 0px auto;
+}
+
+.hero-item td {
+    display: table-cell;
+    width: 400px;
+    border: solid 1px rgb(172, 172, 172);
+    text-align: left;
+    vertical-align: top;
+    background-color: rgb(59, 55, 55);
+}
+
+.hero-item td h1 {
+    margin: 10px;
+    text-align: center;
+}
+
+.hero-item td img {
+    display: block;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-item td p {
+    font-size: 1.4rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-weight: bold;
+  }
+
+  td button {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    color: rgb(172, 172, 172);
+    text-decoration: underline;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+
+

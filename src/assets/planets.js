@@ -1,5 +1,9 @@
 const planets = [
     {
+        name: "Tatooine",
+        url: "https://www.fanthatracks.com/wp-content/uploads/2019/07/homestead_lars_AOTC_1.jpg"
+    },
+    {
         name: "Alderaan",
         url: "https://starwars-visualguide.com/assets/img/planets/2.jpg"
     },

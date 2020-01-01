@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import ItemCard from '../common/components/ItemCard';
 import { connect } from 'react-redux';
-import { setSelectedItem } from '../redux/actions';
+import { setSelectedItem, requestHomeworld } from '../redux/actions';
 import './css/CardList.css';
 
 class CardList extends Component {
 
-    componentDidUpdate(prevProps) {
-        if (this.props.itemsList !== prevProps.itemsList) {
-            const currentItemsList = this.props.itemsList;
-            console.log(currentItemsList);
-        }
-        
-    }
 
     handleCardClick = (name) => {
-        console.log(name);
         const selectedItem = this.props.itemsList.find(elem => elem.name === name);
-        console.log(selectedItem);
         this.props.setSelectedItem(selectedItem);
+        console.log(selectedItem.homeworld);
+        this.props.requestHomeworld(selectedItem.homeworld);
     }
 
     render() {
@@ -56,7 +49,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setSelectedItem: item => dispatch(setSelectedItem(item))
+        setSelectedItem: item => dispatch(setSelectedItem(item)),
+        requestHomeworld: hwUrl => dispatch(requestHomeworld(hwUrl))
     }
 }
 

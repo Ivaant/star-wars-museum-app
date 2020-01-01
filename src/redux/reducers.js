@@ -15,6 +15,12 @@ import {
     REQUEST_ITEMS_FAILED
 } from './constants';
 
+import {
+    REQUEST_HOMEWORLD_PENDING,
+    REQUEST_HOMEWORLD_SUCCESS,
+    REQUEST_HOMEWORLD_FAILED
+} from './constants';
+
 import assets from '../assets/assets';
 
 const initialState = {
@@ -46,7 +52,7 @@ export const appStateSwitcher = (state = initialState, action = {}) => {
             return {
                 ...state,
                 selectedItem: action.payload
-            }    
+            }
 
         default:
             return state;
@@ -103,6 +109,37 @@ export const requestItemsList = (state = initialItemsState, action = {}) => {
                 itemsList: action.payload
             }
         case REQUEST_ITEMS_FAILED:
+            return {
+                ...state,
+                isPending: false,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+const initialHomeworldState = {
+    isPending: true,
+    homeworld: assets.placeholder[0],
+    error: ''
+}
+
+export const setHomeworldData = (state = initialHomeworldState, action = {}) => {
+    switch (action.type) {
+        case REQUEST_HOMEWORLD_PENDING:
+            return {
+                ...state,
+                isPending: true,
+                error: ''
+            }
+        case REQUEST_HOMEWORLD_SUCCESS:
+            return {
+                ...state,
+                isPending: false,
+                homeworld: action.payload
+            }
+        case REQUEST_HOMEWORLD_FAILED:
             return {
                 ...state,
                 isPending: false,
