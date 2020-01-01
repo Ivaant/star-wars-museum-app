@@ -69,17 +69,22 @@ export const requestItemsList = (listUrl) => (dispatch) => {
 
 export const requestHomeworld = (homeworldUrl) => dispatch => {
     dispatch({ type: REQUEST_HOMEWORLD_PENDING });
-    fetch(homeworldUrl)
-        .then(response => response.json())
-        .then(planet => {
+    async function fetchHomeworld() {
+        try {
+            const response = await fetch(homeworldUrl);
+            const planet = await response.json();
             const planetName = planet.name;
             let planetUrl = assets.planets.filter(planet => planet.name === planetName)[0];
-            if (planetUrl === undefined) {
-                planetUrl = assets.placeholder[0].url;
-            }
+            // if (planetUrl === undefined) {
+            //     planetUrl = assets.placeholder[0].url;
+            // }
             const homeworld = { name: planetName, url: planetUrl };
-            dispatch({ type: REQUEST_HOMEWORLD_SUCCESS, payload: homeworld })
-        })
-        .catch(error => dispatch({ type: REQUEST_HOMEWORLD_FAILED, payload: error }));
+            dispatch({ type: REQUEST_HOMEWORLD_SUCCESS, payload: homeworld });
+        } catch (error) {
+            dispatch({ type: REQUEST_HOMEWORLD_FAILED, payload: error });
+        }
+    }
+    fetchHomeworld();
+
 }
 

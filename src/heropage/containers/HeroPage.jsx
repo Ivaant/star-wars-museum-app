@@ -8,14 +8,14 @@ import '../css/HeroPage.css';
 
 class HeroPage extends Component {
 
-    componentDidMount() {
+    componentDidUpdate() {
         this.props.requestHomeworld(this.props.selectedItem.homeworld);
     }
 
     render() {
         const { itemsToRender, selectedItem, homeworldData } = this.props;
-        console.log(selectedItem);
-        console.log("homeworldData", homeworldData);
+        console.log(selectedItem.films);
+        //console.log("homeworldData", homeworldData);
         const itemToRender = itemsToRender.find(elem => elem.name === selectedItem.name);
         return (
             <table className="table">
@@ -37,7 +37,10 @@ class HeroPage extends Component {
                 </tr>
                 <tr className="hero-name">
                     <td>
-                        <ListCell />
+                        <ListCell
+                            header="films"
+                            //contents={selectedItem.films}
+                        />
                     </td>
                     <td>
                         <ListCell />
