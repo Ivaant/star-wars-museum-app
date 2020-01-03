@@ -20,10 +20,16 @@ import {
     REQUEST_HOMEWORLD_FAILED
 } from './constants';
 
+import {
+    REQUEST_FILMS_NAMES_PENDING,
+    REQUEST_FILMS_NAMES_SUCCESS,
+    REQUEST_FILMS_NAMES_FAILED
+} from './constants';
+
 import assets from '../assets/assets';
 
 export const setMenuButtonClick = buttonName => {
-    console.log(buttonName);
+
     return {
         type: CLICK_MENU_BUTTON,
         payload: buttonName
@@ -69,22 +75,28 @@ export const requestItemsList = (listUrl) => (dispatch) => {
 
 export const requestHomeworld = (homeworldUrl) => dispatch => {
     dispatch({ type: REQUEST_HOMEWORLD_PENDING });
-    async function fetchHomeworld() {
-        try {
-            const response = await fetch(homeworldUrl);
-            const planet = await response.json();
+    fetch(homeworldUrl)
+        .then(response => response.json())
+        .then(planet => {
             const planetName = planet.name;
-            let planetUrl = assets.planets.filter(planet => planet.name === planetName)[0];
-            // if (planetUrl === undefined) {
-            //     planetUrl = assets.placeholder[0].url;
-            // }
-            const homeworld = { name: planetName, url: planetUrl };
+            const selectedPlanets = assets.planets.filter(planet => planet.name === planetName);
+            let homeworld = {};
+            if (selectedPlanets.length === 0) {
+                homeworld = assets.placeholder[0];
+            }
+            homeworld = { name: planetName, url: selectedPlanets[0].url };
             dispatch({ type: REQUEST_HOMEWORLD_SUCCESS, payload: homeworld });
-        } catch (error) {
-            dispatch({ type: REQUEST_HOMEWORLD_FAILED, payload: error });
-        }
-    }
-    fetchHomeworld();
-
+        })
+        .catch(error => dispatch({ type: REQUEST_HOMEWORLD_FAILED, payload: error }));
 }
 
+export const requestFilmsNames = (filmsUrls) => dispatch => {
+    dispatch({type: REQUEST_FILMS_NAMES_PENDING});
+    Promise.all(filmsUrls.map(url => {
+        return fetch(url).then(response => response.json())
+    })).then(results => {
+        const filmesNames = results.map(elem => elem.title);
+        dispatch({type: REQUEST_FILMS_NAMES_SUCCESS, payload: filmesNames});
+    })
+    .catch(error => dispatch({type: REQUEST_FILMS_NAMES_FAILED, payload: error}));
+}

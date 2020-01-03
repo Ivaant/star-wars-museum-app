@@ -1,14 +1,16 @@
 import React, { Fragment } from 'react';
 
 const ListCell = (props) => {
+    const {header, contents} = props;
     return (
         <Fragment>
-            <h1>{props.header}</h1>
-            <ul>
-                {/* {props.contents.map((elem, index) => {
-                    return <li key={index}><button>{elem}</button></li>
-                })} */}
-            </ul>
+            <h1>{header}</h1>
+            <p>
+                {contents !== undefined &&
+                contents.map((elem, index) => {
+                    return <button key={index}>{elem}</button>
+                })}
+            </p>
         </Fragment>
     );
 }

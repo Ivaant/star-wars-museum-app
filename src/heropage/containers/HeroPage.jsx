@@ -3,18 +3,15 @@ import ImageCell from '../components/ImageCell';
 import SpecCell from '../components/SpecCell';
 import ListCell from '../components/ListCell';
 import { connect } from 'react-redux';
-import { requestHomeworld } from '../../redux/actions';
 import '../css/HeroPage.css';
 
 class HeroPage extends Component {
 
-    componentDidUpdate() {
-        this.props.requestHomeworld(this.props.selectedItem.homeworld);
-    }
-
     render() {
-        const { itemsToRender, selectedItem, homeworldData } = this.props;
-        console.log(selectedItem.films);
+        const { itemsToRender, selectedItem,
+            homeworldData, hwDataIsPending,
+            filmsDataIsPending, filmsNames } = this.props;
+        console.log("filmesNames", filmsNames);
         //console.log("homeworldData", homeworldData);
         const itemToRender = itemsToRender.find(elem => elem.name === selectedItem.name);
         return (
@@ -30,17 +27,28 @@ class HeroPage extends Component {
                         <SpecCell contents={selectedItem} />
                     </td>
                     <td>
-                        <ImageCell
-                            name={homeworldData.name}
-                            image={homeworldData.url} />
+                        {hwDataIsPending ?
+                            <ImageCell
+                                name={homeworldData.name}
+                                image={homeworldData.url}
+                            />
+                            :
+                            <ImageCell
+                                name={homeworldData.name}
+                                image={homeworldData.url}
+                            />
+                        }
                     </td>
                 </tr>
-                <tr className="hero-name">
+                <tr className="hero-item">
                     <td>
-                        <ListCell
-                            header="films"
-                            //contents={selectedItem.films}
-                        />
+                        {filmsDataIsPending ?
+                            <p>Films are loading...</p>
+                            : <ListCell
+                                header="films"
+                                contents={filmsNames}
+                            />
+                        }
                     </td>
                     <td>
                         <ListCell />
@@ -50,9 +58,7 @@ class HeroPage extends Component {
                     </td>
                 </tr>
 
-                {/*<SpecCell />
-        <ItemCard homeworld={people.homeworld} />
-        <ListCell films={people.films} />
+                {/*
         <ListCell vehicles={people.vehicles} />
         <ListCell starships={people.starships} />*/}
             </table>
@@ -63,14 +69,17 @@ class HeroPage extends Component {
 const mapStateToProps = state => {
     return {
         selectedItem: state.appStateSwitcher.selectedItem,
-        homeworldData: state.setHomeworldData.homeworld,
+        homeworldData: state.setHeroPageState.homeworld,
+        hwDataIsPending: state.setHeroPageState.hwDataIsPending,
+        filmsDataIsPending: state.setHeroPageState.filmsDataIsPending,
+        filmsNames: state.setHeroPageState.filmsNames,
         itemsToRender: state.appStateSwitcher.itemsToRender
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        requestHomeworld: hwUrl => dispatch(requestHomeworld(hwUrl))
+
     }
 }
 

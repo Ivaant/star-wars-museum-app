@@ -21,6 +21,12 @@ import {
     REQUEST_HOMEWORLD_FAILED
 } from './constants';
 
+import {
+    REQUEST_FILMS_NAMES_PENDING,
+    REQUEST_FILMS_NAMES_SUCCESS,
+    REQUEST_FILMS_NAMES_FAILED
+} from './constants';
+
 import assets from '../assets/assets';
 
 const initialState = {
@@ -119,19 +125,23 @@ export const requestItemsList = (state = initialItemsState, action = {}) => {
     }
 }
 
-const initialHomeworldState = {
-    isPending: true,
+const initialHeroPageState = {
+    hwDataIsPending: true,
     homeworld: assets.placeholder[0],
-    error: ''
+    filmsDataIsPending: true,
+    filmsNames: [],
+    hwError: '',
+    filmsNamesError: ''
 }
 
-export const setHomeworldData = (state = initialHomeworldState, action = {}) => {
+export const setHeroPageState = (state = initialHeroPageState, action = {}) => {
     switch (action.type) {
         case REQUEST_HOMEWORLD_PENDING:
             return {
                 ...state,
-                isPending: true,
-                error: ''
+                hwDataIsPending: true,
+                homeworld: assets.placeholder[0],
+                hwError: ''
             }
         case REQUEST_HOMEWORLD_SUCCESS:
             return {
@@ -144,6 +154,23 @@ export const setHomeworldData = (state = initialHomeworldState, action = {}) => 
                 ...state,
                 isPending: false,
                 error: action.payload
+            }
+        case REQUEST_FILMS_NAMES_PENDING:
+            return {
+                ...state,
+                filmsDataIsPending: true
+            }
+        case REQUEST_FILMS_NAMES_SUCCESS:
+            return {
+                ...state,
+                filmsDataIsPending: false,
+                filmsNames: action.payload
+            }
+        case REQUEST_FILMS_NAMES_FAILED:
+            return {
+                ...state,
+                filmsDataIsPending: false,
+                filmsNamesError: action.payload
             }
         default:
             return state

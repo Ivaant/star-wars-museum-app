@@ -1,4 +1,3 @@
-
 .table {
     display: table;
     margin: 10px auto;
@@ -7,7 +6,7 @@
 .hero-item {
     display: table-row;
     width: 1400px;
-   margin: 0px auto;
+    margin: 0px auto;
 }
 
 .hero-item td {
@@ -38,16 +37,16 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     font-weight: bold;
-  }
+}
 
-  td button {
-    background: none!important;
+td p button {
+    display: block;
+    margin: 10px 0px;
     border: none;
     padding: 0!important;
+    background: none!important;
     color: rgb(172, 172, 172);
     text-decoration: underline;
     font-size: 1.4rem;
     cursor: pointer;
-  }
-
-
+}

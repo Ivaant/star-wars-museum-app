@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ItemCard from '../common/components/ItemCard';
 import { connect } from 'react-redux';
-import { setSelectedItem, requestHomeworld } from '../redux/actions';
+import { setSelectedItem, requestHomeworld, requestFilmsNames } from '../redux/actions';
 import './css/CardList.css';
 
 class CardList extends Component {
@@ -9,9 +9,12 @@ class CardList extends Component {
 
     handleCardClick = (name) => {
         const selectedItem = this.props.itemsList.find(elem => elem.name === name);
-        this.props.setSelectedItem(selectedItem);
-        console.log(selectedItem.homeworld);
-        this.props.requestHomeworld(selectedItem.homeworld);
+        async function setSelectedItem() {
+            await this.props.setSelectedItem(selectedItem);
+            await this.props.requestHomeworld(selectedItem.homeworld);
+            await this.props.requestFilmsNames(selectedItem.films);
+        }
+        setSelectedItem.call(this);
     }
 
     render() {
@@ -50,7 +53,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setSelectedItem: item => dispatch(setSelectedItem(item)),
-        requestHomeworld: hwUrl => dispatch(requestHomeworld(hwUrl))
+        requestHomeworld: hwUrl => dispatch(requestHomeworld(hwUrl)),
+        requestFilmsNames: filmsUrl => dispatch(requestFilmsNames(filmsUrl))
     }
 }
 

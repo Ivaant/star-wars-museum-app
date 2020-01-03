@@ -27,19 +27,23 @@ class App extends Component {
                         <h1>MENU IS LOADING...</h1> :
                         <Navigation />
                 }
-                <SearchBox />
-                <Scroll>
-                    {selectedItem ?
-                        {
-                            people: <HeroPage />,
-                            planets: <HeroPage />,
-                            films: <HeroPage />,
-                            species: <HeroPage />,
-                            vehicles: <HeroPage />,
-                            starships: <HeroPage />
-                        }[menuButtonClickedName]
-                        : <CardList />}
-                </Scroll>
+                {selectedItem ?
+                    {
+                        people: <HeroPage />,
+                        planets: <HeroPage />,
+                        films: <HeroPage />,
+                        species: <HeroPage />,
+                        vehicles: <HeroPage />,
+                        starships: <HeroPage />
+                    }[menuButtonClickedName]
+                    :
+                    <Fragment>
+                        <SearchBox />
+                        <Scroll>
+                            <CardList />
+                        </Scroll>
+                    </Fragment>
+                }
                 <Footer />
             </Fragment>
         )
