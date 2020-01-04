@@ -22,9 +22,9 @@ import {
 } from './constants';
 
 import {
-    REQUEST_FILMS_NAMES_PENDING,
-    REQUEST_FILMS_NAMES_SUCCESS,
-    REQUEST_FILMS_NAMES_FAILED
+    REQUEST_NAMES_PENDING,
+    REQUEST_NAMES_SUCCESS,
+    REQUEST_NAMES_FAILED
 } from './constants';
 
 import assets from '../assets/assets';
@@ -128,10 +128,16 @@ export const requestItemsList = (state = initialItemsState, action = {}) => {
 const initialHeroPageState = {
     hwDataIsPending: true,
     homeworld: assets.placeholder[0],
-    filmsDataIsPending: true,
-    filmsNames: [],
+    filmsIsPending: true,
+    vehiclesIsPending: true,
+    starshipsIsPending: true,
+    films: [],
+    vehicles: [],
+    starships: [],
     hwError: '',
-    filmsNamesError: ''
+    filmsError: '',
+    vehiclesError: '',
+    starshipsError: ''
 }
 
 export const setHeroPageState = (state = initialHeroPageState, action = {}) => {
@@ -155,22 +161,22 @@ export const setHeroPageState = (state = initialHeroPageState, action = {}) => {
                 isPending: false,
                 error: action.payload
             }
-        case REQUEST_FILMS_NAMES_PENDING:
+        case REQUEST_NAMES_PENDING:
             return {
                 ...state,
-                filmsDataIsPending: true
+                [action.payload.nameType + "IsPending"]: true
             }
-        case REQUEST_FILMS_NAMES_SUCCESS:
+        case REQUEST_NAMES_SUCCESS:
             return {
                 ...state,
-                filmsDataIsPending: false,
-                filmsNames: action.payload
+                [action.payload.nameType + "IsPending"]: false,
+                [action.payload.nameType]: action.payload.names
             }
-        case REQUEST_FILMS_NAMES_FAILED:
+        case REQUEST_NAMES_FAILED:
             return {
                 ...state,
-                filmsDataIsPending: false,
-                filmsNamesError: action.payload
+                [action.payload.nameType + "IsPending"]: false,
+                [action.payload.nameType +"Error"]: action.payload
             }
         default:
             return state

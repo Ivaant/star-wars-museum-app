@@ -21,9 +21,9 @@ import {
 } from './constants';
 
 import {
-    REQUEST_FILMS_NAMES_PENDING,
-    REQUEST_FILMS_NAMES_SUCCESS,
-    REQUEST_FILMS_NAMES_FAILED
+    REQUEST_NAMES_PENDING,
+    REQUEST_NAMES_SUCCESS,
+    REQUEST_NAMES_FAILED
 } from './constants';
 
 import assets from '../assets/assets';
@@ -90,13 +90,18 @@ export const requestHomeworld = (homeworldUrl) => dispatch => {
         .catch(error => dispatch({ type: REQUEST_HOMEWORLD_FAILED, payload: error }));
 }
 
-export const requestFilmsNames = (filmsUrls) => dispatch => {
-    dispatch({type: REQUEST_FILMS_NAMES_PENDING});
-    Promise.all(filmsUrls.map(url => {
+export const requestNames = (nameType, urls) => dispatch => {
+    dispatch({type: REQUEST_NAMES_PENDING, payload: {nameType}});
+    Promise.all(urls.map(url => {
         return fetch(url).then(response => response.json())
     })).then(results => {
-        const filmesNames = results.map(elem => elem.title);
-        dispatch({type: REQUEST_FILMS_NAMES_SUCCESS, payload: filmesNames});
+        let names = [];
+        if (nameType === "films") {
+            names = results.map(elem => elem.title);
+        } else {
+            names = results.map(elem => elem.name);
+        }        
+        dispatch({type: REQUEST_NAMES_SUCCESS, payload: {nameType, names}});
     })
-    .catch(error => dispatch({type: REQUEST_FILMS_NAMES_FAILED, payload: error}));
+    .catch(error => dispatch({type: REQUEST_NAMES_FAILED, payload: error}));
 }

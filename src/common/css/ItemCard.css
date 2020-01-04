@@ -9,6 +9,7 @@ button.card {
 button.card:hover {
     cursor: pointer;
 }
+
 .item-card {
     margin: 20px;
     border: solid 2px rgb(190, 180, 180);
@@ -22,5 +23,6 @@ button.card:hover {
 }
 
 .item-card img {
-    max-width: 500px;
+    max-width: 400px;
+    max-height: 500px;
 }
