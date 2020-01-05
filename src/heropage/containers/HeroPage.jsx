@@ -3,27 +3,13 @@ import ImageCell from '../components/ImageCell';
 import SpecCell from '../components/SpecCell';
 import ListCell from '../components/ListCell';
 import { connect } from 'react-redux';
+import { setImageUrlToRender } from '../../redux/actions';
 import '../css/HeroPage.css';
-import '../../assets/assets';
-import assets from '../../assets/assets';
 
 class HeroPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            clickedListCellName: '',
-            isPosterClicked: {},
-            clickedFilm: {}
-        }
-    }
 
     handleClickedLinkName = (header, linkName) => {
-        const linkObj = assets[header].filter(elem => elem.name === linkName);
-        if (linkObj) {
-            console.log(linkObj[0]);
-            this.setState({ clickedFilm: linkObj[0] });
-        }
-        console.log(this.state.clickedUrl);
+        this.props.setImageUrlToRender(header, linkName);
     }
 
     render() {
@@ -31,8 +17,11 @@ class HeroPage extends Component {
             homeworldData,
             filmsIsPending, filmsNames,
             vehiclesIsPending, vehiclesNames,
-            starshipsIsPending, starshipsNames } = this.props;
-        //console.log("homeworldData", homeworldData);
+            starshipsIsPending, starshipsNames,
+            imageUrlsToRender } = this.props;
+            // console.log("filmsName", filmsNames);
+            // console.log("vehiclesName", vehiclesNames);
+            // console.log("starshipsName", starshipsNames);
         const itemToRender = itemsToRender.find(elem => elem.name === selectedItem.name);
         return (
             <table className="table">
@@ -60,7 +49,7 @@ class HeroPage extends Component {
                             : <ListCell
                                 header="films"
                                 contents={filmsNames}
-                                //poster={this.state.clickedPoster}
+                                poster={imageUrlsToRender.films}
                                 onLinkClick={this.handleClickedLinkName}
                             />
                         }
@@ -71,7 +60,7 @@ class HeroPage extends Component {
                             : <ListCell
                                 header="vehicles"
                                 contents={vehiclesNames}
-                                //poster={this.state.clickedPoster}
+                                poster={imageUrlsToRender.vehicles}
                                 onLinkClick={this.handleClickedLinkName}
                             />
                         }
@@ -82,7 +71,7 @@ class HeroPage extends Component {
                             : <ListCell
                                 header="starships"
                                 contents={starshipsNames}
-                                //poster={this.state.clickedFilm}
+                                poster={imageUrlsToRender.starships}
                                 onLinkClick={this.handleClickedLinkName}
                             />
                         }
@@ -104,14 +93,14 @@ const mapStateToProps = state => {
         starshipsIsPending: state.setHeroPageState.starshipsIsPending,
         filmsNames: state.setHeroPageState.films,
         vehiclesNames: state.setHeroPageState.vehicles,
-        starshipsNames: state.setHeroPageState.starships
-
+        starshipsNames: state.setHeroPageState.starships,
+        imageUrlsToRender: state.setHeroPageState.imageUrlsToRender
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        setImageUrlToRender: (header, linkName) => dispatch(setImageUrlToRender(header, linkName))
     }
 }
 

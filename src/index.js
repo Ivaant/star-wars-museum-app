@@ -13,7 +13,7 @@ const rootReducer = combineReducers(
         requestItemsList, setHeroPageState
     });
 const logger = createLogger();
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(<Provider store={store}>
     <App />

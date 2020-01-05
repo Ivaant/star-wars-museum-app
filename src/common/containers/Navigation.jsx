@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setMenuButtonClick, mountItemsToRender, requestItemsList } from '../../redux/actions';
+import { setMenuButtonClick, mountItemsToRender, requestItemsList, setImageUrlToNull } from '../../redux/actions';
 import '../css/Navigation.css';
 
 class Navigation extends Component {
@@ -17,6 +17,7 @@ class Navigation extends Component {
     
     const listUrl = this.props.menu[menuName];
     this.props.onRequestItemsList(listUrl);
+    this.props.setImageUrlToNull();
 }
 
   mapper = (name, index) => {
@@ -52,7 +53,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onMenuButtonClick: (menuName) => dispatch(setMenuButtonClick(menuName)),
     mountItemsToRender: (assetName) => dispatch(mountItemsToRender(assetName)),
-    onRequestItemsList: listUrl => dispatch(requestItemsList(listUrl))
+    onRequestItemsList: listUrl => dispatch(requestItemsList(listUrl)),
+    setImageUrlToNull: () => dispatch(setImageUrlToNull())
   }
 }
 

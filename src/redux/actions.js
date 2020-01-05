@@ -26,10 +26,12 @@ import {
     REQUEST_NAMES_FAILED
 } from './constants';
 
+import { SET_IMAGE_URL_TO_RENDER } from './constants';
+import { SET_IMAGE_URL_TO_NULL } from './constants';
+
 import assets from '../assets/assets';
 
 export const setMenuButtonClick = buttonName => {
-
     return {
         type: CLICK_MENU_BUTTON,
         payload: buttonName
@@ -91,7 +93,7 @@ export const requestHomeworld = (homeworldUrl) => dispatch => {
 }
 
 export const requestNames = (nameType, urls) => dispatch => {
-    dispatch({type: REQUEST_NAMES_PENDING, payload: {nameType}});
+    dispatch({ type: REQUEST_NAMES_PENDING, payload: { nameType } });
     Promise.all(urls.map(url => {
         return fetch(url).then(response => response.json())
     })).then(results => {
@@ -100,8 +102,27 @@ export const requestNames = (nameType, urls) => dispatch => {
             names = results.map(elem => elem.title);
         } else {
             names = results.map(elem => elem.name);
-        }        
-        dispatch({type: REQUEST_NAMES_SUCCESS, payload: {nameType, names}});
+        }
+        dispatch({ type: REQUEST_NAMES_SUCCESS, payload: { nameType, names } });
     })
-    .catch(error => dispatch({type: REQUEST_NAMES_FAILED, payload: error}));
+        .catch(error => dispatch({ type: REQUEST_NAMES_FAILED, payload: error }));
+}
+
+export const setImageUrlToRender = (linkType, linkName) => {
+    let linkUrl = assets.placeholder[0].url;
+    const linkArray = assets[linkType].filter(elem => elem.name === linkName);
+    if (linkArray.length !== 0) {
+        linkUrl = linkArray[0].url;
+    }
+    return {
+        type: SET_IMAGE_URL_TO_RENDER,
+        payload: { linkType, poster: {linkName, linkUrl} }
+    }
+}
+
+export const setImageUrlToNull = () => {
+    return {
+        type: SET_IMAGE_URL_TO_NULL,
+        payload: { films: null, vehicles: null, starships: null }
+    }
 }

@@ -27,6 +27,9 @@ import {
     REQUEST_NAMES_FAILED
 } from './constants';
 
+import { SET_IMAGE_URL_TO_RENDER } from './constants';
+import { SET_IMAGE_URL_TO_NULL } from './constants';
+
 import assets from '../assets/assets';
 
 const initialState = {
@@ -137,7 +140,8 @@ const initialHeroPageState = {
     hwError: '',
     filmsError: '',
     vehiclesError: '',
-    starshipsError: ''
+    starshipsError: '',
+    imageUrlsToRender: { films: null, vehicles: null, starships: null }
 }
 
 export const setHeroPageState = (state = initialHeroPageState, action = {}) => {
@@ -176,8 +180,21 @@ export const setHeroPageState = (state = initialHeroPageState, action = {}) => {
             return {
                 ...state,
                 [action.payload.nameType + "IsPending"]: false,
-                [action.payload.nameType +"Error"]: action.payload
+                [action.payload.nameType + "Error"]: action.payload
             }
+        case SET_IMAGE_URL_TO_RENDER:
+            return {
+                ...state,
+                imageUrlsToRender: {
+                    ...state.imageUrlsToRender,
+                    [action.payload.linkType]: action.payload.poster
+                }
+            }
+            case SET_IMAGE_URL_TO_NULL:
+                return {
+                    ...state,
+                    imageUrlsToRender: action.payload
+                }
         default:
             return state
     }
