@@ -10,8 +10,9 @@ class CardList extends Component {
     handleCardClick = (name) => {
         this.props.clearSearchBoxChange('');
         if (this.props.menuButtonClickedName === "people") {
-            const selectedItem = this.props.itemsList.find(elem => elem.name === name);
+            
             async function setSelectedItem() {
+                const selectedItem = await this.props.itemsList.find(elem => elem.name === name);
                 await this.props.setSelectedItem(selectedItem);
                 await this.props.requestHomeworld(selectedItem.homeworld);
                 await this.props.requestNames("films", selectedItem.films);
