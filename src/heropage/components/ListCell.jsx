@@ -2,6 +2,10 @@ import React, { Fragment } from 'react';
 import ImageCell from './ImageCell';
 
 const ListCell = (props) => {
+
+    const handlePosterClick = (header) => {
+        props.onPosterClick(header);
+    }
     const { header, contents, poster, onLinkClick } = props;
     return (
         <Fragment>
@@ -18,6 +22,7 @@ const ListCell = (props) => {
                 <ImageCell
                     image={poster.linkUrl}
                     name={poster.linkName}
+                    onImageClick={((e) => handlePosterClick(header))}
                 />
             }
         </Fragment>

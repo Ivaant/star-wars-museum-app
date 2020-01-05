@@ -28,14 +28,16 @@ class App extends Component {
                         <Navigation />
                 }
                 {selectedItem ?
-                    {
-                        people: <HeroPage />,
-                        planets: <HeroPage />,
-                        films: <HeroPage />,
-                        species: <HeroPage />,
-                        vehicles: <HeroPage />,
-                        starships: <HeroPage />
-                    }[menuButtonClickedName]
+                    <Scroll>{
+                        {
+                            people: <HeroPage />,
+                            planets: <HeroPage />,
+                            films: <HeroPage />,
+                            species: <HeroPage />,
+                            vehicles: <HeroPage />,
+                            starships: <HeroPage />
+                        }[menuButtonClickedName]}
+                    </Scroll>
                     :
                     <Fragment>
                         <SearchBox />

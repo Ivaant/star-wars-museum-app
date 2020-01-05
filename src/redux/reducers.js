@@ -28,7 +28,7 @@ import {
 } from './constants';
 
 import { SET_IMAGE_URL_TO_RENDER } from './constants';
-import { SET_IMAGE_URL_TO_NULL } from './constants';
+import { SET_ALL_IMAGE_URL_TO_NULL } from './constants';
 
 import assets from '../assets/assets';
 
@@ -190,7 +190,7 @@ export const setHeroPageState = (state = initialHeroPageState, action = {}) => {
                     [action.payload.linkType]: action.payload.poster
                 }
             }
-            case SET_IMAGE_URL_TO_NULL:
+            case SET_ALL_IMAGE_URL_TO_NULL:
                 return {
                     ...state,
                     imageUrlsToRender: action.payload

@@ -26,8 +26,10 @@ import {
     REQUEST_NAMES_FAILED
 } from './constants';
 
-import { SET_IMAGE_URL_TO_RENDER } from './constants';
-import { SET_IMAGE_URL_TO_NULL } from './constants';
+import {
+    SET_IMAGE_URL_TO_RENDER, 
+    SET_ALL_IMAGE_URL_TO_NULL
+} from './constants';
 
 import assets from '../assets/assets';
 
@@ -109,6 +111,12 @@ export const requestNames = (nameType, urls) => dispatch => {
 }
 
 export const setImageUrlToRender = (linkType, linkName) => {
+    if (linkName == null) {
+        return {
+            type: SET_IMAGE_URL_TO_RENDER,
+            payload: { linkType, poster: null }
+        }
+    }
     let linkUrl = assets.placeholder[0].url;
     const linkArray = assets[linkType].filter(elem => elem.name === linkName);
     if (linkArray.length !== 0) {
@@ -116,13 +124,13 @@ export const setImageUrlToRender = (linkType, linkName) => {
     }
     return {
         type: SET_IMAGE_URL_TO_RENDER,
-        payload: { linkType, poster: {linkName, linkUrl} }
+        payload: { linkType, poster: { linkName, linkUrl } }
     }
 }
 
-export const setImageUrlToNull = () => {
+export const setAllImageUrlToNull = () => {
     return {
-        type: SET_IMAGE_URL_TO_NULL,
+        type: SET_ALL_IMAGE_URL_TO_NULL,
         payload: { films: null, vehicles: null, starships: null }
     }
 }

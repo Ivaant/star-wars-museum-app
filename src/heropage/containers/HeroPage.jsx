@@ -12,16 +12,15 @@ class HeroPage extends Component {
         this.props.setImageUrlToRender(header, linkName);
     }
 
+    handlePosterClicked = (header) => {
+        this.props.setImageUrlToRender(header, null);
+    }
+
     render() {
-        const { itemsToRender, selectedItem,
-            homeworldData,
-            filmsIsPending, filmsNames,
-            vehiclesIsPending, vehiclesNames,
-            starshipsIsPending, starshipsNames,
-            imageUrlsToRender } = this.props;
-            // console.log("filmsName", filmsNames);
-            // console.log("vehiclesName", vehiclesNames);
-            // console.log("starshipsName", starshipsNames);
+        const { itemsToRender, selectedItem, homeworldData,
+            filmsIsPending, filmsNames, vehiclesIsPending, vehiclesNames,
+            starshipsIsPending, starshipsNames, imageUrlsToRender } = this.props;
+
         const itemToRender = itemsToRender.find(elem => elem.name === selectedItem.name);
         return (
             <table className="table">
@@ -51,6 +50,7 @@ class HeroPage extends Component {
                                 contents={filmsNames}
                                 poster={imageUrlsToRender.films}
                                 onLinkClick={this.handleClickedLinkName}
+                                onPosterClick={this.handlePosterClicked}
                             />
                         }
                     </td>
@@ -62,6 +62,7 @@ class HeroPage extends Component {
                                 contents={vehiclesNames}
                                 poster={imageUrlsToRender.vehicles}
                                 onLinkClick={this.handleClickedLinkName}
+                                onPosterClick={this.handlePosterClicked}
                             />
                         }
                     </td>
@@ -73,6 +74,7 @@ class HeroPage extends Component {
                                 contents={starshipsNames}
                                 poster={imageUrlsToRender.starships}
                                 onLinkClick={this.handleClickedLinkName}
+                                onPosterClick={this.handlePosterClicked}
                             />
                         }
                     </td>
