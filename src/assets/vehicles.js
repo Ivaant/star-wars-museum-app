@@ -38,6 +38,14 @@ const vehicles = [
     {
         name: "Sail barge",
         url: "https://starwars-visualguide.com/assets/img/vehicles/24.jpg"
+    },
+    {
+        name: "Imperial Speeder Bike",
+        url: "https://starwars-visualguide.com/assets/img/vehicles/30.jpg"
+    },
+    {
+        name: "Tribubble bongo",
+        url: "https://starwars-visualguide.com/assets/img/vehicles/38.jpg"
     }
 ];
 

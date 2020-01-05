@@ -118,7 +118,7 @@ export const setImageUrlToRender = (linkType, linkName) => {
         }
     }
     let linkUrl = assets.placeholder[0].url;
-    const linkArray = assets[linkType].filter(elem => elem.name === linkName);
+    const linkArray = assets[linkType].filter(elem => elem.name.toLowerCase() === linkName.toLowerCase());
     if (linkArray.length !== 0) {
         linkUrl = linkArray[0].url;
     }

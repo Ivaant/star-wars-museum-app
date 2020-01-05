@@ -9,6 +9,7 @@ const SearchBox = (props) => {
             type="search"
             placeholder={`search ${props.menuButtonClicked}`}
             onChange={props.onSearchBoxChange}
+            value={props.searchBoxInput}
         />
 
     )
@@ -16,7 +17,8 @@ const SearchBox = (props) => {
 
 const mapStateToProps = state => {
     return {
-        menuButtonClicked: state.appStateSwitcher.menuButtonClickedName
+        menuButtonClicked: state.appStateSwitcher.menuButtonClickedName,
+        searchBoxInput: state.appStateSwitcher.searchBoxInput
     }
 }
 

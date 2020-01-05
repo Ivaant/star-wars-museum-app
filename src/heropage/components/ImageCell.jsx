@@ -1,5 +1,4 @@
 import React from 'react';
-//import '../css/ItemCard.css';
 
 const ImageCell = (props) => {
 

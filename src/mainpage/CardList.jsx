@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import ItemCard from '../common/components/ItemCard';
 import { connect } from 'react-redux';
-import { setSelectedItem, requestHomeworld, requestNames } from '../redux/actions';
+import { setSelectedItem, requestHomeworld, requestNames, handleSearchBoxChange } from '../redux/actions';
 import './css/CardList.css';
 
 class CardList extends Component {
 
 
     handleCardClick = (name) => {
-        const selectedItem = this.props.itemsList.find(elem => elem.name === name);
-        async function setSelectedItem() {
-            await this.props.setSelectedItem(selectedItem);
-            await this.props.requestHomeworld(selectedItem.homeworld);
-            await this.props.requestNames("films", selectedItem.films);
-            await this.props.requestNames("vehicles", selectedItem.vehicles);
-            await this.props.requestNames("starships", selectedItem.starships);
+        this.props.clearSearchBoxChange('');
+        if (this.props.menuButtonClickedName === "people") {
+            const selectedItem = this.props.itemsList.find(elem => elem.name === name);
+            async function setSelectedItem() {
+                await this.props.setSelectedItem(selectedItem);
+                await this.props.requestHomeworld(selectedItem.homeworld);
+                await this.props.requestNames("films", selectedItem.films);
+                await this.props.requestNames("vehicles", selectedItem.vehicles);
+                await this.props.requestNames("starships", selectedItem.starships);
+            }
+            setSelectedItem.call(this);
         }
-        setSelectedItem.call(this);
     }
 
     render() {
@@ -48,7 +51,8 @@ const mapStateToProps = state => {
         searchBoxInput: state.appStateSwitcher.searchBoxInput,
         itemsToRender: state.appStateSwitcher.itemsToRender,
         itemsList: state.requestItemsList.itemsList,
-        selectedItem: state.appStateSwitcher.selectedItem
+        selectedItem: state.appStateSwitcher.selectedItem,
+        menuButtonClickedName: state.appStateSwitcher.menuButtonClickedName
     }
 }
 
@@ -56,7 +60,8 @@ const mapDispatchToProps = dispatch => {
     return {
         setSelectedItem: item => dispatch(setSelectedItem(item)),
         requestHomeworld: hwUrl => dispatch(requestHomeworld(hwUrl)),
-        requestNames: (nameType, urls) => dispatch(requestNames(nameType, urls))
+        requestNames: (nameType, urls) => dispatch(requestNames(nameType, urls)),
+        clearSearchBoxChange: (emptyString) => dispatch(handleSearchBoxChange(emptyString))
     }
 }
 

@@ -38,6 +38,26 @@ const starships = [
     {
         name: "EF76 Nebulon-B escort frigate",
         url: "https://starwars-visualguide.com/assets/img/starships/23.jpg"
+    },
+    {
+        name: "Jedi starfighter",
+        url: "https://starwars-visualguide.com/assets/img/starships/48.jpg"
+    },
+    {
+        name: "Trade Federation cruiser",
+        url: "http://i.imgur.com/LWo8JTK.png"
+    },
+    {
+        name: "Naboo Star Skiff",
+        url: "http://new-republic.net/wiki/images/d/d0/Naboo_Star_Skiff.png"
+    },
+    {
+        name: "jedi interceptor",
+        url: "https://c1.staticflickr.com/2/1544/24367056392_390a64671f_b.jpg"
+    },
+    {
+        name: "Belbullab-22 starfighter",
+        url: "http://starforge.info/wp-content/uploads/2019/7/article-81_1.jpg"
     }
 ];
 

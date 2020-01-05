@@ -42,6 +42,10 @@ const planets = [
     {
         name: "Geonosis",
         url: "https://starwars-visualguide.com/assets/img/planets/11.jpg"
+    },
+    {
+        name: "Stewjon",
+        url: "http://i.imgur.com/5NtkIPq.png"
     }
 ];
 
